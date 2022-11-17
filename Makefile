@@ -4,8 +4,8 @@ SHELL := bash
 .SHELLFLAGS := -eu -o pipefail -c
 
 HEADERS = 'Tik,Name,Sector,M,T,A,Saf,R,U,Yld,Val,GrL,Gr5,G20,GrS,UnS'
-COLWIDTH = 10
-FMTDISPLAY = body sed 's/Wide/W/g;s/Narrow/N/g;s/Foreign/F/g;s/Qualified/Q/g;s/Canadian/C/g;s/Stable/=/g;s/Negative/-/g;s/Positive/+/g;s/Standard/=/g;s/Exemplary/+/g;s/Medium/=/g;s/Low/+/g;s/High/-/g' 
+COLWIDTH = 20
+FMTDISPLAY = body sed 's/Wide/Wd/g;s/Narrow/Nr/g;s/Foreign/F/g;s/Qualified/Q/g;s/Canadian/C/g;s/Stable/=/g;s/Negative/-/g;s/Positive/+/g;s/Standard/=/g;s/Exemplary/+/g;s/Medium/=/g;s/Low/+/g;s/High/-/g' 
 .PHONY = all showbest clean
 
 all: best.csv narrowjoined.csv widejoined.csv
@@ -21,6 +21,7 @@ define show
 	<$1 qsv select $(HEADERS) |
 	$(FMTDISPLAY) |
 	qsv sort -s R,Yld -R -N |
+	tee $1.tmp |
 	csvlook --max-column-width $(COLWIDTH)
 endef
 
