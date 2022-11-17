@@ -3,30 +3,32 @@ SHELL := bash
 .SILENT:
 .SHELLFLAGS := -eu -o pipefail -c
 
-HEADERS = 'Tik,Name,Sector,M,T,A,Saf,R,U,Yld,Val,GrL,Gr5,G20,GrS,UnS'
+MIXHEADERS = 'Tik,Name,Sector,M,T,A,Saf,R,U,Yld,Val,GrL,Gr5,G20,GrS,UnS'
+MSHEADERS = 'Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
+
 COLWIDTH = 20
 FMTDISPLAY = body sed 's/Wide/Wd/g;s/Narrow/Nr/g;s/Foreign/F/g;s/Qualified/Q/g;s/Canadian/C/g;s/Stable/=/g;s/Negative/-/g;s/Positive/+/g;s/Standard/=/g;s/Exemplary/+/g;s/Medium/=/g;s/Low/+/g;s/High/-/g' 
 .PHONY = all showbest clean
 
-all: best.csv narrowjoined.csv widejoined.csv
-	$(call show,best.csv,'VERY SAFE - WIDE')
-	$(call show,narrowjoined.csv,'VERY SAFE - NARROW')
-	$(call show,widejoined.csv, 'SAFE - WIDE')
+all: best.csv narrowjoined.csv widejoined.csv justwide.csv
+	$(call show,best.csv,'VERY SAFE - WIDE',$(MIXHEADERS))
+	$(call show,narrowjoined.csv,'VERY SAFE - NARROW',$(MIXHEADERS))
+	$(call show,widejoined.csv,'SAFE - WIDE',$(MIXHEADERS))
+	$(call show,justwide.csv,'JUST WIDE',$(MSHEADERS))
 
 define show
 	echo
 	echo $2
 	echo "----------------"
 	echo
-	<$1 qsv select $(HEADERS) |
+	<$1 qsv select $3 |
 	$(FMTDISPLAY) |
 	qsv sort -s R,Yld -R -N |
-	tee $1.tmp |
 	csvlook --max-column-width $(COLWIDTH)
 endef
 
 msr.csv: ms.csv
-	<$< qsv rename Tik,Name,Industry,YldF,YldB,M,T,A,R,U,PFV,PEF,PC > $@
+	<$< qsv rename $(MSHEADERS) > $@
 
 sdsr.csv: sds.csv
 	<$< qsv rename Tik,Name,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,Yld,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax > $@ 
@@ -49,5 +51,8 @@ widejoined.csv: joined.csv best.csv
 narrowjoined.csv: joined.csv best.csv
 	<joined.csv qsv search -s M Narrow | qsv search -s Saf '^[9|8].*' > $@
 
+justwide.csv: joined.csv msr.csv
+	<msr.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 joined.csv > $@
+	
 clean:
 	trash *.csv
