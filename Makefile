@@ -5,16 +5,20 @@ SHELL := bash
 
 MIXHEADERS = 'Tik,Name,Sector,M,T,A,Saf,R,U,Yld,Val,GrL,Gr5,G20,GrS,UnS'
 MSHEADERS = 'Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
+SDSHEADERS = 'Tik,Name,Sector,Saf,Yld,Val,GrL,Gr5,G20,GrS,UnS'
+MSSEL = 'R,Yld'
+SDSSEL = 'Yld'
 
 COLWIDTH = 20
 FMTDISPLAY = body sed 's/Wide/Wd/g;s/Narrow/Nr/g;s/Foreign/F/g;s/Qualified/Q/g;s/Canadian/C/g;s/Stable/=/g;s/Negative/-/g;s/Positive/+/g;s/Standard/=/g;s/Exemplary/+/g;s/Medium/=/g;s/Low/+/g;s/High/-/g' 
 .PHONY = all showbest clean
 
-all: best.csv narrowjoined.csv widejoined.csv justwide.csv
-	$(call show,best.csv,'VERY SAFE - WIDE',$(MIXHEADERS))
-	$(call show,narrowjoined.csv,'VERY SAFE - NARROW',$(MIXHEADERS))
-	$(call show,widejoined.csv,'SAFE - WIDE',$(MIXHEADERS))
-	$(call show,justwide.csv,'JUST WIDE',$(MSHEADERS))
+all: best.csv narrowjoined.csv widejoined.csv justwide.csv justverysafe.csv
+	$(call show,best.csv,'VERY SAFE - WIDE',$(MIXHEADERS),$(MSSEL))
+	$(call show,narrowjoined.csv,'VERY SAFE - NARROW',$(MIXHEADERS),$(MSSEL))
+	$(call show,widejoined.csv,'SAFE - WIDE',$(MIXHEADERS),$(MSSEL))
+	$(call show,justwide.csv,'JUST WIDE',$(MSHEADERS),$(MSSEL))
+	$(call show,justverysafe.csv,'JUST VERY SAFE',$(SDSHEADERS),$(SDSSEL))
 
 define show
 	echo
@@ -23,7 +27,7 @@ define show
 	echo
 	<$1 qsv select $3 |
 	$(FMTDISPLAY) |
-	qsv sort -s R,Yld -R -N |
+	qsv sort -s $4 -R -N |
 	csvlook --max-column-width $(COLWIDTH)
 endef
 
@@ -54,5 +58,8 @@ narrowjoined.csv: joined.csv best.csv
 justwide.csv: joined.csv msr.csv
 	<msr.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 joined.csv > $@
 	
+justverysafe.csv: joined.csv sdsr.csv
+	<sdsr.csv qsv search -s Saf '^[9|8].*' | qsv join --left-anti 1 - 1 joined.csv > $@
+
 clean:
 	trash *.csv
