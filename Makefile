@@ -3,17 +3,18 @@ SHELL := bash
 .SILENT:
 .SHELLFLAGS := -eu -o pipefail -c
 
-MIXHEADERS = 'Tik,Name,Sector,M,T,A,Saf,R,U,Yld,Val,GrL,Gr5,G20,GrS,UnS'
-MSHEADERS = 'Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
-SDSHEADERS = 'Tik,Name,Sector,Saf,Yld,Val,GrL,Gr5,G20,GrS,UnS'
-MSSEL = 'R,Yld'
-SDSSEL = 'Yld'
+MIXHEADERS  = 'Tik,Name,Sector,M,T,A,Saf,R,U,Yld,Val,GrL,Gr5,G20,GrS,UnS'
+MSHEADERS   = 'Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
+SDSRHEADERS = 'TikS,NameS,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
+SDSHEADERS  = 'TikS,NameS,Sector,Saf,YldS,Val,GrL,Gr5,G20,GrS,UnS'
+MSSEL       = 'R,Yld'
+SDSSEL      = 'YldS'
 
 COLWIDTH = 20
 FMTDISPLAY = body sed 's/Wide/Wd/g;s/Narrow/Nr/g;s/Foreign/F/g;s/Qualified/Q/g;s/Canadian/C/g;s/Stable/=/g;s/Negative/-/g;s/Positive/+/g;s/Standard/=/g;s/Exemplary/+/g;s/Medium/=/g;s/Low/+/g;s/High/-/g' 
 .PHONY = all showbest clean
 
-all: best.csv narrowjoined.csv widejoined.csv justwide.csv justverysafe.csv
+all: best.csv narrowjoined.csv widejoined.csv justwide.csv justverysafe.csv fulljoinded.csv
 	$(call show,best.csv,'VERY SAFE - WIDE',$(MIXHEADERS),$(MSSEL))
 	$(call show,narrowjoined.csv,'VERY SAFE - NARROW',$(MIXHEADERS),$(MSSEL))
 	$(call show,widejoined.csv,'SAFE - WIDE',$(MIXHEADERS),$(MSSEL))
@@ -35,7 +36,7 @@ msr.csv: ms.csv
 	<$< qsv rename $(MSHEADERS) > $@
 
 sdsr.csv: sds.csv
-	<$< qsv rename Tik,Name,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,Yld,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax > $@ 
+	<$< qsv rename $(SDSRHEADERS) > $@ 
 
 ms.csv:
 	cp "$$(ls -rt /mnt/c/Users/lucabol/Downloads/morn*.csv | tail -n 1)" $@
@@ -43,6 +44,9 @@ ms.csv:
 sds.csv:
 	cp "$$(ls -rt /mnt/c/Users/lucabol/Downloads/Screener*.csv | tail -n 1)" $@
 
+fulljoinded.csv: msr.csv sdsr.csv
+	qsv join --full 1 $(word 1,$^) 1 $(word 2,$^) > $@
+	
 joined.csv: msr.csv sdsr.csv
 	qsv join 1 $(word 1,$^) 1 $(word 2,$^) > $@
 
