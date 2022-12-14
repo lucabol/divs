@@ -4,11 +4,11 @@ PATH=./node_modules/.bin:$PATH
 # Used in multiple function - there should be a better way
 MSHEADERS='Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
 
-function clean {
+function clean {    # Remove csv files
     trash *.csv
 }
 
-function build {
+function build {    # Grab csv files and build projections 
     local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
 
     # Copy from Download folder
@@ -57,7 +57,7 @@ function build_if_old {
   [ -n "$(find ms.csv -newermt 'yesterday' 2>/dev/null)" ] || build 
 }
 
-function table {
+function table {    # Print table of stocks
     build_if_old
 
     local MIXHEADERS='Tik,Name,Sector,M,T,A,Saf,R,U,YldS,Val,GrL,Gr5,G20,GrS,UnS'
@@ -75,7 +75,7 @@ function table {
     show justverysafe.csv 'JUST VERY SAFE' $SDSHEADERS $SDSSEL
 }
 
-function chart {
+function chart {    # Chart all stocks
     build_if_old
 
     read -r -d '' PLCMD << 'EOM'
@@ -92,10 +92,10 @@ EOM
     <fulljoined.csv rush run -C -l see,ggplot2,ggthemes,ggrepel "$CMD" - | display
 }
 
-function help {
+function help {     # Prints help
     echo "$0 <task> <args>"
     echo "Tasks:"
-    compgen -A function | cat -n
+    grep '^function .* #.* ' Taskfile | cut -d' ' -f 2- | tr -d '{#'
 }
 
-${@:-chart}
+${@:-help}
