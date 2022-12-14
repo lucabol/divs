@@ -1,6 +1,6 @@
 # Cross reference M* and SimpleSafeDividends criterias
 
-Process to generate files for divs.bat
+Process to generate files for `run`
 
 ## Morningstar
 
