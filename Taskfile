@@ -1,5 +1,4 @@
 #!/bin/bash
-PATH=./node_modules/.bin:$PATH
 
 # Used in multiple function - there should be a better way
 MSHEADERS='Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
@@ -30,10 +29,11 @@ function build {    # Grab csv files and build projections
     # Calc very best ones
     <joined.csv qsv search -s M Wide | qsv search -s Saf '^[9|8].*' > best.csv
 
-    <joined.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 best.csv > widejoined.csv &
-    <joined.csv qsv search -s M Narrow | qsv search -s Saf '^[9|8].*' > narrowjoined.csv &
-    <msr.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 joined.csv > justwide.csv &
+    <joined.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 best.csv         > widejoined.csv &
+    <joined.csv qsv search -s M Narrow | qsv search -s Saf '^[9|8].*'              > narrowjoined.csv &
+    <msr.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 joined.csv          > justwide.csv &
     <sdsr.csv qsv search -s Saf '^[9|8].*' | qsv join --left-anti 1 - 1 joined.csv > justverysafe.csv &
+    <sdsr.csv qsv join --left-anti 1 - 1 joined.csv                                > justsafe.csv &
     wait
 }
 
@@ -75,27 +75,54 @@ function table {    # Print table of stocks
     show justverysafe.csv 'JUST VERY SAFE' $SDSHEADERS $SDSSEL
 }
 
-function chart {    # Chart all stocks
+function chart {
     build_if_old
 
-    read -r -d '' PLCMD << 'EOM'
-      ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS)))
-       + geom_point(size = 1, aes(color=M))
-       + geom_text_repel(aes(label = ifelse(is.na(Tik),TikS,Tik), color = M), size = 2)
-       + theme_tufte()
-       + theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed"))
-       + ylim(3, 9) + guides(color=FALSE)
-EOM
+    <"$1" rush run -C -l ggplot2,ggrepel "$2" - | display
+}
 
-    CMD=$(echo $PLCMD)
+function chartbest {  # Chart stocks that have moat and are safe
+    CMD='
+      ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
+        geom_point(size = 1, aes(color=M)) +
+        geom_text_repel(aes(label = ifelse(is.na(Tik),TikS,Tik), color = M), size = 2) +
+        theme_tufte() +
+        theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
+        theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
+        ylim(3, 9) + guides(color=FALSE)'
 
-    <fulljoined.csv rush run -C -l see,ggplot2,ggthemes,ggrepel "$CMD" - | display
+  chart "joined.csv" "$CMD"
+}
+
+function chartsafe {  # Chart stocks that are safe, but no moat info
+    CMD='
+      ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
+        geom_point(size = 1) +
+        geom_text_repel(aes(label = TikS), size = 2) +
+        theme_tufte() +
+        theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
+        theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
+        ylim(3, 9) + guides(color=FALSE)'
+
+        chart "justsafe.csv" "$CMD"
+}
+
+function chartall {   # Chart all stocks
+  chartbest
+  chartsafe
 }
 
 function help {     # Prints help
-    echo "$0 <task> <args>"
+    echo "Usage: $0 <task> <args>"
+    echo "Execute a task with the specified arguments."
+    echo "By adding 'alias run=./Taskfile' you can then call it as 'run <task> <args>"
+    echo
     echo "Tasks:"
-    grep '^function .* #.* ' Taskfile | cut -d' ' -f 2- | tr -d '{#'
+    grep '^function .* #.* ' Taskfile | # Start with function and has # somewhere
+      cut -d' ' -f 2- |                 # Remove the word 'function'
+      tr -d '{' |                       # Remove '{}'
+      sed 's/^/  /g' |                  # Indent by two spaces
+      column --table --separator '#'    # column it using # as the separator
 }
 
 ${@:-help}
