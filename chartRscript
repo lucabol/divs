@@ -1,0 +1,14 @@
+#!/usr/bin/env Rscript
+library(ggplot2)
+library(ggrepel)
+library(ggthemes)
+
+df <- read.csv("/dev/stdin")
+
+ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
+  geom_point(size = 1, aes(color=M)) +
+  geom_text_repel(aes(label = ifelse(is.na(Tik),TikS,Tik), color = M), size = 2) +
+  theme_tufte() +
+  theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
+  theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
+  ylim(3, 9) + guides(color="none")

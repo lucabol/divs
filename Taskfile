@@ -78,7 +78,9 @@ function table {    # Print table of stocks
 function chart {
     build_if_old
 
-    <"$1" rush run -C -l ggplot2,ggrepel "$2" - | display
+    intro='library(ggthemes);library(ggplot2);library(ggrepel);df <- read.csv("/dev/stdin")'
+
+    <"$1" Rscript -e "$intro $2"
 }
 
 function chartbest {  # Chart stocks that have moat and are safe
@@ -89,7 +91,7 @@ function chartbest {  # Chart stocks that have moat and are safe
         theme_tufte() +
         theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
         theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
-        ylim(3, 9) + guides(color=FALSE)'
+        ylim(3, 9) + guides(color="none")'
 
   chart "joined.csv" "$CMD"
 }
@@ -98,18 +100,19 @@ function chartsafe {  # Chart stocks that are safe, but no moat info
     CMD='
       ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
         geom_point(size = 1) +
-        geom_text_repel(aes(label = TikS), size = 2) +
+        geom_text_repel(aes(label = TikS), size = 2, max.overlaps = Inf) +
         theme_tufte() +
         theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
         theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
-        ylim(3, 9) + guides(color=FALSE)'
+        ylim(3, 9) + guides(color="none")'
 
         chart "justsafe.csv" "$CMD"
 }
 
 function chartall {   # Chart all stocks
-  chartbest
-  chartsafe
+  chartbest &
+  chartsafe &
+  wait
 }
 
 function help {     # Prints help
