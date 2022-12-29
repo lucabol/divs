@@ -8,4 +8,3 @@ p <- ggplot(X,aes(Saf,YldS)) +
   theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed"))
 
 print(p)
-

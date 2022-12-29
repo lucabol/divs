@@ -8,10 +8,16 @@ function clean {    # Remove csv files
 }
 
 function build {    # Grab csv files and build projections 
+    if [ "$#" -ne 1 ]; then
+      echo "Pass the number of morningstar export files to get from Downloads folder"
+      exit -1
+    fi
+
     local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
 
-    # Copy from Download folder
-  	cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/morn*.csv     | tail -n 1)" ./ms.csv
+    # Copy from Download folder, need to pass the number of morningstar files to download
+  	cp -f $(ls -rt /mnt/c/Users/lucabol/Downloads/morn*.csv     | tail -n $1 | paste -d ' ' -s) ./
+    qsv cat rows -o ms.csv $(ls -rt morn*.csv | paste -d ' ' -s)
   	cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/Screener*.csv | tail -n 1)" ./sds.csv
 
     # TODO: discover why csv files from windows shares are executable
@@ -53,12 +59,12 @@ function insert_codes {
 }
 
 # Either the target exist and it is newer than yesterday or execute the first dependency
-function build_if_old {
-  [ -n "$(find ms.csv -newermt 'yesterday' 2>/dev/null)" ] || build 
+function exit_if_old {
+  [ -n "$(find ms.csv -newermt 'yesterday' 2>/dev/null)" ] || { echo "Old files, build first"; exit 1; }
 }
 
 function table {    # Print table of stocks
-    build_if_old
+    exit_if_old
 
     local MIXHEADERS='Tik,Name,Sector,M,T,A,Saf,R,U,YldS,Val,GrL,Gr5,G20,GrS,UnS'
     local SDSHEADERS='TikS,NameS,Sector,Saf,YldS,Val,GrL,Gr5,G20,GrS,UnS'
@@ -76,7 +82,7 @@ function table {    # Print table of stocks
 }
 
 function chart {
-    build_if_old
+    exit_if_old
 
     intro='library(ggthemes);library(ggplot2);library(ggrepel);df <- read.csv("/dev/stdin")'
 
@@ -88,7 +94,6 @@ function chartbest {  # Chart stocks that have moat and are safe
       ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
         geom_point(size = 1, aes(color=M)) +
         geom_text_repel(aes(label = ifelse(is.na(Tik),TikS,Tik), color = M), size = 2) +
-        theme_tufte() +
         theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
         theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
         ylim(3, 9) + guides(color="none")'
@@ -98,10 +103,9 @@ function chartbest {  # Chart stocks that have moat and are safe
 
 function chartsafe {  # Chart stocks that are safe, but no moat info
     CMD='
-      ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
+      ggplot(df,aes(Saf,YldS)) +
         geom_point(size = 1) +
         geom_text_repel(aes(label = TikS), size = 2, max.overlaps = Inf) +
-        theme_tufte() +
         theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
         theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
         ylim(3, 9) + guides(color="none")'
