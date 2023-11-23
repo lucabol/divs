@@ -16,9 +16,9 @@ function build {    # Grab csv files and build projections
     local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
 
     # Copy from Download folder, need to pass the number of morningstar files to download
-  	cp -f $(ls -rt /mnt/c/Users/lucabol/Downloads/morn*.csv     | tail -n $1 | paste -d ' ' -s) ./
-    qsv cat rows -o ms.csv $(ls -rt morn*.csv | paste -d ' ' -s)
-  	cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/Screener*.csv | tail -n 1)" ./sds.csv
+  	cp -f $(ls -rt /mnt/c/Users/lucabol/Downloads/Screener_*.csv     | tail -n $1 | paste -d ' ' -s) ./
+    qsv cat rows -o ms.csv $(ls -rt Screener_*.csv | paste -d ' ' -s)
+  	cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/Screener\ *.csv | tail -n 1)" ./sds.csv
 
     # TODO: discover why csv files from windows shares are executable
     chmod a-x *.csv
