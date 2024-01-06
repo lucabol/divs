@@ -72,7 +72,7 @@ function table {    # Print table of stocks
     local MSSEL='R,Yld'
     local SDSSEL='YldS'
 
-    local COLWIDTH=20
+    local COLWIDTH=15
   
     show best.csv 'VERY SAFE - WIDE' $MIXHEADERS $MIXSEL
     show narrowjoined.csv 'VERY SAFE - NARROW' $MIXHEADERS $MIXSEL
