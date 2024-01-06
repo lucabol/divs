@@ -13,7 +13,7 @@ set datafile separator ','
 # This looks good, but the chart disappears when pressing Enter. It is not actively mantained either.
 #set terminal caca driver ncurses enhanced charset unicode title ""
 
-# This looks better than dumb, worse than caca, but it is mantained and in braille mode works with Pragmata.
+# This looks better than dumb, worse than caca, but it is mantained and in braille mode works with Pragmata
 # But cannot rotate text, use a different font or make text bigger (i.e., with enhanced text)
 set terminal block size 110,60 braille ansi256 enhanced attributes optimize 
 
@@ -31,6 +31,8 @@ rgbW = rgbcolor("chartreuse")
 rgbN = rgbcolor("cyan")
 FmtRgb(moat) = moat eq "Wide" ? rgbW : rgbN
 
-plot "joined.csv" u "Saf":"Yld":(FmtEnh(stringcolumn("Tik"),stringcolumn("M"))):(FmtRgb(stringcolumn("M"))) w labels tc rgb variable
+plot "joined.csv" u "Saf":"Yld":(FmtEnh(stringcolumn("Tik"),stringcolumn("M"))):(FmtRgb(stringcolumn("M"))) \
+  w labels tc rgb variable notitle
+
 pause -1
-plot "justsafe.csv" u "Saf":"YldS":"TikS":(rgbW) w labels tc rgb variable
+plot "justsafe.csv" u "Saf":"YldS":"TikS":(rgbW) w labels tc rgb variable notitle
