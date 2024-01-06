@@ -81,42 +81,10 @@ function table {    # Print table of stocks
     show justverysafe.csv 'JUST VERY SAFE' $SDSHEADERS $SDSSEL
 }
 
-function chart {
+function chart {  # Print chart of stocks
     exit_if_old
 
-    intro='library(ggthemes);library(ggplot2);library(ggrepel);df <- read.csv("/dev/stdin")'
-
-    <"$1" Rscript -e "$intro $2"
-}
-
-function chartbest {  # Chart stocks that have moat and are safe
-    CMD='
-      ggplot(df,aes(Saf,ifelse(is.na(YldS), Yld,YldS))) +
-        geom_point(size = 1, aes(color=M)) +
-        geom_text_repel(aes(label = ifelse(is.na(Tik),TikS,Tik), color = M), size = 2) +
-        theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
-        theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
-        ylim(3, 9) + guides(color="none")'
-
-  chart "joined.csv" "$CMD"
-}
-
-function chartsafe {  # Chart stocks that are safe, but no moat info
-    CMD='
-      ggplot(df,aes(Saf,YldS)) +
-        geom_point(size = 1) +
-        geom_text_repel(aes(label = TikS), size = 2, max.overlaps = Inf) +
-        theme(panel.grid.major.y = element_line(colour = "grey", linetype = "dashed")) +
-        theme(panel.grid.minor.y = element_line(colour = "grey", linetype = "dashed")) +
-        ylim(3, 9) + guides(color="none")'
-
-        chart "justsafe.csv" "$CMD"
-}
-
-function chartall {   # Chart all stocks
-  chartbest &
-  chartsafe &
-  wait
+    gnuplot gnuscript
 }
 
 function help {     # Prints help

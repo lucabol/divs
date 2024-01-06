@@ -1,0 +1,36 @@
+# Use unicode chars (not needed here)
+set encoding utf8
+
+# Read vanilla csv
+set datafile separator ','
+
+# You need a sixel terminal for this, but gives best result for non-text
+#set terminal sixelgd transparent truecolor size 1600,1100 font "PragmataPro Liga,16" linewidth 2
+
+# This is the worst of the text ones, most likely to work with all fonts and terminals
+#set terminal dumb size 100,80 ansirgb aspect 1 attributes
+
+# This looks good, but the chart disappears when pressing Enter. It is not actively mantained either.
+#set terminal caca driver ncurses enhanced charset unicode title ""
+
+# This looks better than dumb, worse than caca, but it is mantained and in braille mode works with Pragmata.
+# But cannot rotate text, use a different font or make text bigger (i.e., with enhanced text)
+set terminal block size 110,60 braille ansi256 enhanced attributes optimize 
+
+# don't mirror borders, put just bottom and left border and set horizontal lines
+set xtics nomirror
+set ytics nomirror
+set border 1+2
+set grid y
+
+# Use enhanced text (http://gnuplot.info/docs_5.5/loc1081.html) to set label visual properties
+FmtEnh(ticker,moat) = sprintf("{/%s %s}", moat eq "Wide" ? ":Bold" : ":Normal",ticker)
+
+# See http://gnuplot.info/docs_6.0/loc10967.html for list of colors
+rgbW = rgbcolor("chartreuse")
+rgbN = rgbcolor("cyan")
+FmtRgb(moat) = moat eq "Wide" ? rgbW : rgbN
+
+plot "joined.csv" u "Saf":"Yld":(FmtEnh(stringcolumn("Tik"),stringcolumn("M"))):(FmtRgb(stringcolumn("M"))) w labels tc rgb variable
+pause -1
+plot "justsafe.csv" u "Saf":"YldS":"TikS":(rgbW) w labels tc rgb variable
