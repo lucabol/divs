@@ -32,7 +32,11 @@ rgbN = rgbcolor("cyan")
 FmtRgb(moat) = moat eq "Wide" ? rgbW : rgbN
 
 plot "joined.csv" u "Saf":"Yld":(FmtEnh(stringcolumn("Tik"),stringcolumn("M"))):(FmtRgb(stringcolumn("M"))) \
-  w labels tc rgb variable notitle
+  w labels tc rgb variable title "Morningstar and SimplySafeDividends"
 
 pause -1
-plot "justsafe.csv" u "Saf":"YldS":"TikS":(rgbW) w labels tc rgb variable notitle
+plot [1:0.4] "msronly.csv" u "PFV":"Yld":(FmtEnh(stringcolumn("Tik"),stringcolumn("M"))):(FmtRgb(stringcolumn("M"))) \
+  w labels tc rgb variable title "Just Morningstar"
+
+pause -1
+plot "sdsonly.csv" u "Saf":"YldS":"TikS":(rgbW) w labels tc rgb variable title "Just SimplySafeDividends"

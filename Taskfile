@@ -12,6 +12,7 @@ function build {    # Grab csv files and build projections
       echo "Pass the number of morningstar export files to get from Downloads folder"
       exit -1
     fi
+    clean
 
     local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
 
@@ -27,26 +28,32 @@ function build {    # Grab csv files and build projections
     <ms.csv qsv rename $MSHEADERS > msr.csv
     <sds.csv qsv rename $SDSRHEADERS > sdsr.csv
 
-    # Join and fulljoin them in parallel
-    qsv join --full 1 msr.csv 1 sdsr.csv > fulljoined.csv &
+    # Both M* and SDS
     qsv join 1 msr.csv 1 sdsr.csv        > joined.csv &
+
+    # Only M* and only SDS
+    qsv join --left-anti 1 msr.csv 1 sdsr.csv > msronly.csv
+    qsv join --left-anti 1 sdsr.csv 1 msr.csv > sdsonly.csv
+
     wait
 
     # Calc very best ones
     <joined.csv qsv search -s M Wide | qsv search -s Saf '^[9|8].*' > best.csv
 
+    # Format multiple tables to display in order of safety
     <joined.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 best.csv         > widejoined.csv &
     <joined.csv qsv search -s M Narrow | qsv search -s Saf '^[9|8].*'              > narrowjoined.csv &
     <msr.csv qsv search -s M Wide | qsv join --left-anti 1 - 1 joined.csv          > justwide.csv &
     <sdsr.csv qsv search -s Saf '^[9|8].*' | qsv join --left-anti 1 - 1 joined.csv > justverysafe.csv &
     <sdsr.csv qsv join --left-anti 1 - 1 joined.csv                                > justsafe.csv &
+    <msr.csv qsv search -s M Narrow | qsv search -s R '[5|4]' | qsv join --left-anti 1 - 1 joined.csv        > unsafenarrow.csv &
     wait
 }
 
 function show {
     echo
     echo $2
-    echo "----------------"
+    echo "------------------------------"
     echo
     <$1 qsv select $3 |
     insert_codes |
@@ -74,11 +81,12 @@ function table {    # Print table of stocks
 
     local COLWIDTH=15
   
-    show best.csv 'VERY SAFE - WIDE' $MIXHEADERS $MIXSEL
-    show narrowjoined.csv 'VERY SAFE - NARROW' $MIXHEADERS $MIXSEL
-    show widejoined.csv 'SAFE - WIDE' $MIXHEADERS $MIXSEL
-    show justwide.csv 'JUST WIDE' $MSHEADERS $MSSEL
-    show justverysafe.csv 'JUST VERY SAFE' $SDSHEADERS $SDSSEL
+    show best.csv 'VERY SAFE WITH WIDE MOAT' $MIXHEADERS $MIXSEL
+    show narrowjoined.csv 'VERY SAFE WITH NARROW MOAT' $MIXHEADERS $MIXSEL
+    show widejoined.csv 'SAFE WITH WIDE MOAT' $MIXHEADERS $MIXSEL
+    show justwide.csv 'UNSAFE WITH WIDE MOAT' $MSHEADERS $MSSEL
+    show justverysafe.csv 'VERY SAFE WIHOUT MOAT' $SDSHEADERS $SDSSEL
+    show unsafenarrow.csv 'UNSAFE WITH NARROW MOAT CHEAP' $MSHEADERS $MSSEL
 }
 
 function chart {  # Print chart of stocks
