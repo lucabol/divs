@@ -7,6 +7,54 @@ function clean {    # Remove csv files
     trash *.csv
 }
 
+function legend {   # Display legend for tables
+cat << EOF
+Morningstar
+  Ticker          Tik
+  Name            Name
+  Industry        Industry
+  Yield Fwd       Yld
+  Yield Trailing  YldB
+  Economic Moat   M
+  Cap Alloc       A
+  MS Rating       R
+  Fair Value Unc  U
+  Price/Fair V    PFV
+  Price/Earn      PEF
+  Price/CashFl    PC
+
+SDS
+  Ticker          TikS
+  Name            NameS
+  Sector          Sector
+  Sub-Sector      SubSect
+  Market Cap      MCap
+  Beta            Beta
+  Timeliness      Time
+  5-year avg Yld  YldAvg
+  % Abv 5Yr Yld   Val
+  Dividend Yld    YldS
+  P/E Ratio       PEB
+  P/E 5-year      PE5
+  Safety          Saf
+  Div Gr Latest   GrL
+  Div Gr 5yr      Gr5
+  Div Gr 20yr     Gr20
+  Div Gr Streak   GrS
+  Unint Div Str   GrU
+  Ex Div Date     Dat
+  Div Freq        Frq
+  Payout Ratio    Pay
+  Net Debt/Cap Rt DtC
+  Net Dbt/EBITDA  DtE
+  Yrs + FCF of 10 PFCF
+  Recessin div    RD
+  Recession Ret   RR
+  Paym Schedule   Sch
+  Taxation        Tax
+
+EOF
+}
 function build {    # Grab csv files and build projections 
     if [ "$#" -ne 1 ]; then
       echo "Pass the number of morningstar export files to get from Downloads folder"
