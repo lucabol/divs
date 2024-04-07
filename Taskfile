@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Used in multiple function - there should be a better way
-MSHEADERS='Tik,Name,Industry,Yld,YldB,M,T,A,R,U,PFV,PEF,PC'
+MSHEADERS='Tik,Name,Industry,Yld,YldB,M,A,R,U,PFV,PEF,PC'
 
 function clean {    # Remove csv files
     trash *.csv
@@ -59,6 +59,8 @@ function show {
     insert_codes |
     qsv sort -s $4 -R -N |
     csvlook --max-column-width $COLWIDTH
+    # The instruction below doesn't align correctly numbers (right) vs strings (left)
+    #qsv table -c $COLWIDTH -a right
 }
 
 function insert_codes {
@@ -73,7 +75,7 @@ function exit_if_old {
 function table {    # Print table of stocks
     exit_if_old
 
-    local MIXHEADERS='Tik,Name,Sector,M,T,A,Saf,R,U,YldS,Val,GrL,Gr5,G20,GrS,UnS'
+    local MIXHEADERS='Tik,Name,Sector,M,A,Saf,R,U,YldS,Val,GrL,Gr5,G20,GrS,UnS'
     local SDSHEADERS='TikS,NameS,Sector,Saf,YldS,Val,GrL,Gr5,G20,GrS,UnS'
     local MIXSEL='R,YldS'
     local MSSEL='R,Yld'
