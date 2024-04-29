@@ -1,0 +1,17 @@
+{
+  key=@"Yld"
+  cnt[key] += 1
+  t[key,cnt[key]]=@"Tik"
+  y[key,cnt[key]]=@"Yld"
+  s[key,cnt[key]] = @"Saf"
+}
+END {
+    printf "Tik,Yld,Saf\n"
+    for (key in cnt) {
+        if (cnt[key] > 1) {
+            for (i=1; i<=cnt[key]; i++) {
+                printf "%s,%s,%s\n", t[key,i], y[key,i], s[key,i]
+            }
+        }
+      }
+}

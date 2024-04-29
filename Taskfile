@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Used in multiple function - there should be a better way
-MSHEADERS='Tik,Name,Industry,Yld,YldB,M,A,R,U,PFV,PEF,PC'
-
 function clean {    # Remove csv files
     trash *.csv
 }
@@ -55,6 +52,10 @@ SDS
 
 EOF
 }
+
+# Used in multiple function - there should be a better way
+MSHEADERS='Tik,Name,SectorM,Industry,Yld,YldB,M,A,R,U,PFV,PEF,PC'
+
 function build {    # Grab csv files and build projections 
     if [ "$#" -ne 1 ]; then
       echo "Pass the number of morningstar export files to get from Downloads folder"
