@@ -1,0 +1,100 @@
+Tik,Name,SectorM,Industry,Yld,YldB,M,A,R,U,PFV,PEF,PC
+IPG,The Interpublic Group of Companies Inc,Communication Services,Advertising Agencies,4.16,3.97,Narrow,Exemplary,4.00,High,0.78,10.60,8.16
+WPP,WPP PLC ADR,Communication Services,Advertising Agencies,5.29,5.29,Narrow,Exemplary,4.00,High,0.74,10.89,5.58
+NTR,Nutrien Ltd,Basic Materials,Agricultural Inputs,3.89,3.84,Narrow,Exemplary,4.00,High,0.75,10.23,6.05
+FMC,FMC Corp,Basic Materials,Agricultural Inputs,3.73,3.73,Narrow,Standard,5.00,High,0.52,16.37,15.92
+VFC,VF Corp,Consumer Cyclical,Apparel Manufacturing,2.67,5.78,Narrow,Standard,5.00,Very High,0.23,9.32,4.81
+MBGAF,Mercedes-Benz Group AG,Consumer Cyclical,Auto Manufacturers,6.89,6.91,Narrow,Standard,4.00,High,0.63,6.97,3.85
+BMWYY,Bayerische Motoren Werke AG ADR,Consumer Cyclical,Auto Manufacturers,7.44,7.44,Narrow,Standard,4.00,High,0.65,6.79,3.01
+ABEV,Ambev SA ADR,Consumer Defensive,Beverages - Brewers,6.34,6.34,Wide,Exemplary,5.00,Medium,0.64,2.53,7.76
+KOF,Coca-Cola Femsa SAB de CV ADR,Consumer Defensive,Beverages - Non-Alcoholic,3.45,3.45,Wide,Standard,3.00,Medium,1.01,6.74,-
+KO,Coca-Cola Co,Consumer Defensive,Beverages - Non-Alcoholic,3.25,3.12,Wide,Exemplary,3.00,Low,0.97,20.74,20.82
+BASFY,Basf SE ADR,Basic Materials,Chemicals,6.41,6.41,Narrow,Standard,4.00,Medium,0.80,17.42,8.53
+DOW,Dow Inc,Basic Materials,Chemicals,4.76,4.76,Narrow,Standard,4.00,Medium,0.84,19.50,10.19
+CSCO,Cisco Systems Inc,Technology,Communication Equipment,3.25,3.19,Wide,Exemplary,3.00,Medium,0.96,12.79,12.46
+MMM,3M Co,Industrials,Conglomerates,6.52,6.49,Narrow,Standard,3.00,Very High,0.88,10.60,8.06
+PFE,Pfizer Inc,Healthcare,Drug Manufacturers - General,6.27,6.16,Wide,Standard,5.00,Medium,0.62,11.79,13.66
+GSK,GSK PLC ADR,Healthcare,Drug Manufacturers - General,3.60,3.60,Wide,Standard,4.00,Medium,0.75,12.94,10.62
+JNJ,Johnson & Johnson,Healthcare,Drug Manufacturers - General,3.13,3.13,Wide,Standard,4.00,Low,0.90,13.85,18.96
+AMGN,Amgen Inc,Healthcare,Drug Manufacturers - General,3.38,3.24,Wide,Exemplary,3.00,High,0.99,13.77,16.24
+SNY,Sanofi SA ADR,Healthcare,Drug Manufacturers - General,4.32,4.03,Wide,Standard,4.00,Medium,0.76,11.95,11.63
+NVS,Novartis AG ADR,Healthcare,Drug Manufacturers - General,3.94,3.94,Wide,Standard,3.00,Medium,0.96,13.56,13.74
+RHHBY,Roche Holding AG ADR,Healthcare,Drug Manufacturers - General,4.54,4.54,Wide,Exemplary,5.00,Low,0.56,13.93,10.76
+GILD,Gilead Sciences Inc,Healthcare,Drug Manufacturers - General,4.40,4.32,Wide,Standard,4.00,Medium,0.70,9.72,8.31
+BMY,Bristol-Myers Squibb Co,Healthcare,Drug Manufacturers - General,4.65,4.53,Wide,Exemplary,4.00,Medium,0.77,6.91,6.62
+ABBV,AbbVie Inc,Healthcare,Drug Manufacturers - General,3.67,3.54,Wide,Standard,3.00,High,0.96,15.15,14.97
+GLW,Corning Inc,Technology,Electronic Components,3.44,3.44,Narrow,Exemplary,3.00,Medium,0.89,16.65,12.69
+SIRI,Sirius XM Holdings Inc,Communication Services,Entertainment,3.18,3.04,Narrow,Exemplary,5.00,Medium,0.42,10.97,6.24
+CVS,CVS Health Corp,Healthcare,Healthcare Plans,3.74,3.49,Narrow,Standard,5.00,Medium,0.67,8.97,6.84
+RBGLY,Reckitt Benckiser Group PLC ADR,Consumer Defensive,Household & Personal Products,4.33,4.33,Wide,Standard,5.00,Medium,0.61,16.26,11.41
+UL,Unilever PLC ADR,Consumer Defensive,Household & Personal Products,3.89,3.89,Wide,Standard,4.00,Low,0.83,17.02,14.49
+CLX,Clorox Co,Consumer Defensive,Household & Personal Products,3.32,3.31,Wide,Exemplary,4.00,Medium,0.83,21.00,21.71
+KMB,Kimberly-Clark Corp,Consumer Defensive,Household & Personal Products,3.84,3.74,Narrow,Exemplary,3.00,Medium,0.90,18.38,14.55
+MSM,MSC Industrial Direct Co Inc Class A,Industrials,Industrial Distribution,3.51,3.47,Narrow,Standard,4.00,Medium,0.85,15.62,11.88
+CHRW,C.H. Robinson Worldwide Inc,Industrials,Integrated Freight & Logistics,3.35,3.35,Wide,Exemplary,4.00,Medium,0.81,21.79,19.38
+UPS,United Parcel Service Inc Class B,Industrials,Integrated Freight & Logistics,4.33,4.31,Wide,Standard,3.00,Medium,0.92,17.62,11.94
+HAS,Hasbro Inc,Consumer Cyclical,Leisure,4.88,4.88,Narrow,Standard,5.00,Medium,0.66,17.02,15.05
+TPR,Tapestry Inc,Consumer Cyclical,Luxury Goods,3.28,3.16,Narrow,Standard,4.00,High,0.68,8.37,7.65
+SNN,Smith & Nephew PLC ADR,Healthcare,Medical Devices,3.04,3.04,Narrow,Standard,5.00,Medium,0.63,12.08,11.45
+MDT,Medtronic PLC,Healthcare,Medical Devices,3.29,3.29,Narrow,Standard,4.00,Medium,0.72,15.06,14.99
+DVN,Devon Energy Corp,Energy,Oil & Gas E&P,4.44,4.44,Narrow,Exemplary,3.00,High,1.01,10.27,5.23
+PXD,Pioneer Natural Resources Co,Energy,Oil & Gas E&P,4.02,4.02,Narrow,Exemplary,4.00,Medium,0.87,13.17,7.65
+XOM,Exxon Mobil Corp,Energy,Oil & Gas Integrated,3.11,3.04,Narrow,Exemplary,3.00,High,0.90,13.18,8.30
+CVX,Chevron Corp,Energy,Oil & Gas Integrated,4.02,3.80,Narrow,Exemplary,3.00,High,0.90,12.71,7.85
+CQP,Cheniere Energy Partners LP,Energy,Oil & Gas Midstream,8.76,8.76,Wide,Standard,3.00,Medium,0.89,12.52,7.87
+KMI,Kinder Morgan Inc Class P,Energy,Oil & Gas Midstream,6.19,6.19,Narrow,Standard,4.00,Medium,0.90,13.51,6.62
+EPD,Enterprise Products Partners LP,Energy,Oil & Gas Midstream,7.04,6.85,Wide,Exemplary,3.00,Medium,1.04,10.89,7.87
+ENB,Enbridge Inc,Energy,Oil & Gas Midstream,5.62,7.47,Narrow,Standard,4.00,Medium,0.82,12.17,8.26
+MPLX,MPLX LP Partnership Units,Energy,Oil & Gas Midstream,8.21,7.85,Narrow,Standard,3.00,Medium,1.00,10.15,7.90
+TRP,TC Energy Corp,Energy,Oil & Gas Midstream,5.60,7.47,Narrow,Standard,4.00,Medium,0.77,8.65,7.55
+WMB,Williams Companies Inc,Energy,Oil & Gas Midstream,4.89,4.67,Narrow,Standard,3.00,Medium,1.00,20.29,8.13
+DINO,HF Sinclair Corp,Energy,Oil & Gas Refining & Marketing,3.03,3.03,Narrow,Standard,3.00,Very High,0.88,8.84,4.78
+CMP,Compass Minerals International Inc,Basic Materials,Other Industrial Metals & Mining,4.28,4.28,Narrow,Standard,4.00,Very High,0.55,65.82,4.17
+NSRGY,Nestle SA ADR,Consumer Defensive,Packaged Foods,3.29,3.19,Wide,Standard,4.00,Low,0.81,20.37,16.04
+CPB,Campbell Soup Co,Consumer Defensive,Packaged Foods,3.33,3.33,Wide,Standard,4.00,Medium,0.70,13.46,9.92
+K,Kellanova Co,Consumer Defensive,Packaged Foods,3.92,4.04,Narrow,Standard,4.00,Medium,0.74,15.46,12.12
+GIS,General Mills Inc,Consumer Defensive,Packaged Foods,3.43,3.43,Narrow,Exemplary,4.00,Low,0.86,14.57,12.34
+DANOY,Danone SA ADR,Consumer Defensive,Packaged Foods,3.64,3.51,Narrow,Standard,3.00,Medium,0.94,17.61,11.77
+AMCR,Amcor PLC Ordinary Shares,Consumer Cyclical,Packaging & Containers,5.33,5.28,Narrow,Standard,4.00,Medium,0.81,13.24,9.75
+QSR,Restaurant Brands International Inc,Consumer Cyclical,Restaurants,3.13,3.00,Narrow,Standard,3.00,Medium,0.92,15.07,21.70
+SQM,Sociedad Quimica Y Minera De Chile SA ADR,Basic Materials,Specialty Chemicals,9.74,9.74,Narrow,Standard,4.00,Very High,0.49,12.58,-
+LYB,LyondellBasell Industries NV Class A,Basic Materials,Specialty Chemicals,4.77,4.77,Narrow,Standard,4.00,Medium,0.85,12.04,7.31
+EMN,Eastman Chemical Co,Basic Materials,Specialty Chemicals,3.18,3.14,Narrow,Standard,4.00,High,0.78,12.77,11.24
+IFF,International Flavors & Fragrances Inc,Basic Materials,Specialty Chemicals,1.85,3.28,Wide,Standard,4.00,High,0.64,22.76,23.04
+BBY,Best Buy Co Inc,Consumer Cyclical,Specialty Retail,4.55,4.48,Narrow,Standard,3.00,High,0.85,13.19,8.01
+KDDIY,KDDI Corp ADR,Communication Services,Telecom Services,3.51,3.51,Narrow,Standard,4.00,Low,0.92,0.08,5.77
+TU,TELUS Corp,Communication Services,Telecom Services,5.08,6.82,Narrow,Exemplary,5.00,Low,0.66,16.20,6.61
+DTEGY,Deutsche Telekom AG ADR,Communication Services,Telecom Services,3.46,3.18,Narrow,Exemplary,4.00,Medium,0.83,11.62,2.91
+VZ,Verizon Communications Inc,Communication Services,Telecom Services,6.56,6.53,Narrow,Standard,4.00,Medium,0.74,8.63,4.56
+BCE,BCE Inc,Communication Services,Telecom Services,6.57,8.73,Narrow,Exemplary,5.00,Low,0.72,14.34,5.04
+CCOI,Cogent Communications Holdings Inc,Communication Services,Telecom Services,5.95,5.86,Narrow,Exemplary,4.00,Medium,0.84,-,105.51
+KKPNY,Koninklijke KPN NV ADR,Communication Services,Telecom Services,4.35,4.35,Narrow,Standard,3.00,Medium,1.01,16.50,6.28
+RCI,Rogers Communications Inc Shs -B- Non-Voting,Communication Services,Telecom Services,2.69,3.69,Narrow,Standard,5.00,Low,0.65,7.82,4.76
+TELNY,Telenor ASA ADR,Communication Services,Telecom Services,7.61,7.61,Narrow,Standard,3.00,High,0.93,1.36,5.64
+BTI,British American Tobacco PLC ADR,Consumer Defensive,Tobacco,10.03,10.03,Wide,Standard,5.00,Medium,0.58,8.11,5.69
+IMBBY,Imperial Brands PLC ADR,Consumer Defensive,Tobacco,8.60,8.60,Wide,Standard,5.00,Medium,0.60,8.60,5.32
+PM,Philip Morris International Inc,Consumer Defensive,Tobacco,5.71,5.68,Wide,Exemplary,4.00,Medium,0.86,14.05,13.46
+SRE,Sempra,Utilities,Utilities - Diversified,3.46,3.36,Narrow,Standard,4.00,Medium,0.86,14.28,8.25
+ETR,Entergy Corp,Utilities,Utilities - Regulated Electric,4.25,4.14,Narrow,Standard,4.00,Low,0.83,14.25,5.85
+CMS,CMS Energy Corp,Utilities,Utilities - Regulated Electric,3.48,3.34,Narrow,Standard,3.00,Low,1.01,17.26,8.96
+D,Dominion Energy Inc,Utilities,Utilities - Regulated Electric,5.39,5.39,Narrow,Standard,3.00,Medium,1.04,15.97,6.24
+AGR,Avangrid Inc,Utilities,Utilities - Regulated Electric,4.91,4.91,Narrow,Standard,3.00,Medium,1.03,15.89,7.94
+WEC,WEC Energy Group Inc,Utilities,Utilities - Regulated Electric,4.08,3.88,Narrow,Exemplary,4.00,Low,0.82,16.75,9.29
+EXC,Exelon Corp,Utilities,Utilities - Regulated Electric,4.01,3.86,Narrow,Standard,4.00,Low,0.93,15.02,6.62
+HE,Hawaiian Electric Industries Inc,Utilities,Utilities - Regulated Electric,-,6.44,Narrow,Standard,3.00,Extreme,0.82,5.47,2.64
+FE,FirstEnergy Corp,Utilities,Utilities - Regulated Electric,4.49,4.23,Narrow,Standard,4.00,Low,0.87,14.01,12.19
+POR,Portland General Electric Co,Utilities,Utilities - Regulated Electric,4.67,4.67,Narrow,Standard,4.00,Low,0.82,13.19,5.54
+DUK,Duke Energy Corp,Utilities,Utilities - Regulated Electric,4.21,4.19,Narrow,Standard,4.00,Low,0.84,15.87,7.79
+XEL,Xcel Energy Inc,Utilities,Utilities - Regulated Electric,4.08,3.92,Narrow,Standard,4.00,Low,0.89,14.94,7.17
+PNW,Pinnacle West Capital Corp,Utilities,Utilities - Regulated Electric,4.72,4.68,Narrow,Standard,4.00,Low,0.94,15.84,6.46
+LNT,Alliant Energy Corp,Utilities,Utilities - Regulated Electric,3.84,3.68,Narrow,Standard,4.00,Low,0.83,15.66,9.11
+PPL,PPL Corp,Utilities,Utilities - Regulated Electric,3.74,3.55,Narrow,Standard,4.00,Low,0.88,16.19,10.71
+SO,Southern Co,Utilities,Utilities - Regulated Electric,3.97,3.97,Narrow,Exemplary,3.00,Low,0.99,17.12,9.96
+EIX,Edison International,Utilities,Utilities - Regulated Electric,4.53,4.40,Narrow,Standard,4.00,Medium,0.87,13.73,6.51
+AEP,American Electric Power Co Inc,Utilities,Utilities - Regulated Electric,4.23,4.11,Narrow,Standard,4.00,Low,0.90,14.62,7.58
+EVRG,Evergy Inc,Utilities,Utilities - Regulated Electric,4.85,4.74,Narrow,Standard,5.00,Low,0.78,13.30,6.41
+DTE,DTE Energy Co,Utilities,Utilities - Regulated Electric,3.71,3.59,Narrow,Standard,4.00,Low,0.89,15.84,7.17
+PEG,Public Service Enterprise Group Inc,Utilities,Utilities - Regulated Electric,3.57,3.44,Narrow,Standard,3.00,Low,1.00,18.31,13.45
+NJR,New Jersey Resources Corp,Utilities,Utilities - Regulated Gas,3.91,3.84,Narrow,Standard,4.00,Low,0.90,14.64,10.43
+NI,NiSource Inc,Utilities,Utilities - Regulated Gas,3.84,3.67,Narrow,Standard,4.00,Low,0.81,15.84,7.05
+WTRG,Essential Utilities Inc,Utilities,Utilities - Regulated Water,3.51,3.45,Narrow,Standard,4.00,Low,0.82,17.27,12.96
