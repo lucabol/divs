@@ -62,7 +62,8 @@ function build {    # Grab csv files and build projections
     local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Val,ExpPrice,PYield,Yld5y,PYld5y,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
 
     cp -f $(ls -rt /mnt/c/Users/lucabol/Downloads/*.xlsx     | tail -n 1 | paste -d ' ' -s) ./msoriginal.xlsx
-    xlsx2csv -q all msoriginal.xlsx > msoriginal.csv
+    # There are errors here, but the result seems ok, nullifying error output to avoid confusion
+    xlsx2csv -q all msoriginal.xlsx > msoriginal.csv 2> /dev/null
     qsv cat rows -o ms.csv msoriginal.csv
     
     cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/*.csv     | tail -n 1 | paste -d ' ' -s)" ./sds.csv
