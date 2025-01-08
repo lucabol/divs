@@ -57,18 +57,15 @@ EOF
 MSHEADERS='Tik,Name,SectorM,Industry,Yld,YldB,M,A,R,U,PFV,PEF,PC'
 
 function build {    # Grab csv files and build projections 
-    if [ "$#" -ne 1 ]; then
-      echo "Pass the number of morningstar export files to get from Downloads folder"
-      exit -1
-    fi
     clean
 
-    local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Time,YldAvg,Val,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
+    local SDSRHEADERS='TikS,NameS,Sector,SubSect,MCap,Beta,Val,ExpPrice,PYield,Yld5y,PYld5y,YldS,PEB,PE5,Saf,GrL,Gr5,G20,GrS,UnS,Dat,Frq,Pay,DtC,DtE,PFCF,RD,RR,Sch,Tax'
 
-    # Copy from Download folder, need to pass the number of morningstar files to download
-  	cp -f $(ls -rt /mnt/c/Users/lucabol/Downloads/Screener_*.csv     | tail -n $1 | paste -d ' ' -s) ./
-    qsv cat rows -o ms.csv $(ls -rt Screener_*.csv | paste -d ' ' -s)
-  	cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/Screener\ *.csv | tail -n 1)" ./sds.csv
+    cp -f $(ls -rt /mnt/c/Users/lucabol/Downloads/*.xlsx     | tail -n 1 | paste -d ' ' -s) ./msoriginal.xlsx
+    xlsx2csv -q all msoriginal.xlsx > msoriginal.csv
+    qsv cat rows -o ms.csv msoriginal.csv
+    
+    cp -f "$(ls -rt /mnt/c/Users/lucabol/Downloads/*.csv     | tail -n 1 | paste -d ' ' -s)" ./sds.csv
 
     # TODO: discover why csv files from windows shares are executable
     chmod a-x *.csv
